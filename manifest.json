@@ -6,23 +6,11 @@
 
   "description": "Open a tab near the current tab",
   "homepage_url": "https://github.com/beyondlov1/open-near",
-  "icons": {
-    "48": "icons/beasts-48.png"
-  },
   
   "permissions": [
     "activeTab",
-    "contextualIdentities",
-    "cookies",
-    "menus",
-    "menus.overrideContext",
-    "notifications",
-    "search",
     "sessions",
-    "storage",
-    "tabs",
-    "theme",
-    "nativeMessaging"
+    "tabs"
   ],
   "background": {
     "page": "/background/background.html"
