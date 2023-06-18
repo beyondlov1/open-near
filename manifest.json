@@ -6,7 +6,14 @@
 
   "description": "Open a tab near the current tab",
   "homepage_url": "https://github.com/beyondlov1/open-near",
-  
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "beyondlov1@hotmail.com",
+      "strict_min_version": "50.0"
+    }
+  },
+
   "permissions": [
     "activeTab",
     "sessions",
