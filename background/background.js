@@ -6,13 +6,15 @@
 
 
 var currActiveUrl = "";
-var currActiveTabId = 0;
 var tabId2url = {}
+var windowActiveTabIdMap = {}
 
 function handleCreated(tab) {
   console.log(tab.id);
-  if(currActiveTabId == 0) return;
+  let currActiveTabId = windowActiveTabIdMap[tab.windowId] 
+  if (currActiveTabId && currActiveTabId == 0) return;
   // tab.openerTabId
+  
   chrome.tabs.get(currActiveTabId, (activetab)=>{
     if(!activetab) return;
     chrome.tabs.move(tab.id, {index:activetab.index+1})
@@ -33,11 +35,11 @@ chrome.tabs.onUpdated.addListener(handleUpdated);
 
 function handleActivated(activeInfo) {
   try {
-    currActiveTabId = activeInfo.tabId;
-    if (currActiveTabId == 0) return;
-    chrome.tabs.get(currActiveTabId, (tab)=>{
+    if (activeInfo.tabId == 0) return;
+    chrome.tabs.get(activeInfo.tabId, (tab)=>{
       currActiveUrl = tab.url;
       tabId2url[tab.id] = tab.url;
+      windowActiveTabIdMap[tab.windowId] = tab.id
       console.log("currActiveUrl"+currActiveUrl)
     })
   } catch (error) {
