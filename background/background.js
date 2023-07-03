@@ -17,7 +17,13 @@ function handleCreated(tab) {
   
   chrome.tabs.get(currActiveTabId, (activetab)=>{
     if(!activetab) return;
-    chrome.tabs.move(tab.id, {index:activetab.index+1})
+    if(activetab.groupId >= 0){
+      chrome.tabs.group({groupId:activetab.groupId, tabIds:[tab.id]}).then((groupId)=>{
+        chrome.tabs.move(tab.id, {index:activetab.index+1})  
+      })
+    }else{
+      chrome.tabs.move(tab.id, {index:activetab.index+1})
+    }
   })
 
 }
